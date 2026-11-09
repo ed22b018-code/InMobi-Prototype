@@ -257,7 +257,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 // Add the final deck URL here once the deck has a shareable link.
 const DECK_LINK = 'deck.pdf';
 const DATA = {
-  customer: 'Maya R.', store: 'Greenfield Market', window: 'Sunday 10:00–12:00',
+  customer: 'Maya R.', store: 'Greenfield Market', window: 'Sunday 10:00-12:00',
   request: 'Get my usual Sunday basket under $80. If my milk is out, lactose-free up to $5 is fine.',
   delivery: 399, servicePercent: 5, cap: 8000, usualPacks: 2, guard: 3,
   rule: { mode: 'any_brand', lactoseFree: true, max: 500, version: 3 },
@@ -451,7 +451,7 @@ function screenRules() {
     btn('Start building my basket','start-build','primary full')];
 }
 function product(item, desc = item[3], cents = item[4], title = item[2]) {
-  return `<li class="product"><span class="item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${item[1]}</svg></span><div><strong>${title}</strong><span class="micro">${desc}</span></div><span class="price num">${cents===null ? '—' : money(cents)}</span></li>`;
+  return `<li class="product"><span class="item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${item[1]}</svg></span><div><strong>${title}</strong><span class="micro">${desc}</span></div><span class="price num">${cents===null ? '-' : money(cents)}</span></li>`;
 }
 function milkCard() {
   const decision = milkDecision();
@@ -598,7 +598,7 @@ function panelContent() {
         word:current.label,reason:current.code,
         cards:[['Request',{cart_id:'draft_17',line_id:'milk_01',candidate_sku:current.sku}],
           ['Catalog checked',{sku:current.sku,lactose_free:current.lactoseFree,pack_ml:1000,price_cents:current.cents,in_stock:current.available}],['Verdict',response]],
-        why:'Build the substitution-preference API first. It lets every partner apply the same rule and return a reason the customer can understand.',
+        why:'Build the substitution-preference API first. It lets every partner apply the same rule and return a reason the customer can understand. Checkout stays with Maya for now: her tap at payment is the safety net until the autonomy test has data.',
         visual:`<div class="tech-box" id="panel-compare"><h3>All candidate outcomes</h3><table class="tech-table" aria-label="Milk candidates"><tbody>${milk.list.map(item=>`<tr><td>${item.name}<br><code>${item.available?(item.code==='RULE_CONFLICT'&&!item.lactoseFree&&rule.lactoseFree?'RULE_CONFLICT · lactose_free':item.code):'OUT_OF_STOCK'}</code></td><td>${money(item.cents)}</td><td>${item.available?badge(item.label):'<span class="badge block">Sold out</span>'}</td></tr>`).join('')}</tbody></table></div>`
       };
     }
