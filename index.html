@@ -83,7 +83,7 @@ h1,h2,h3,p{margin:0}button svg{vertical-align:middle}svg{display:inline-block;fl
 .app-foot{padding:10px 15px;margin-top:auto;text-align:center;font-size:9px;color:#576784}
 .overlay{position:fixed;inset:0;display:grid;place-items:center;z-index:50;background:#09183690;padding:12px}.dialog{width:min(100%,470px);max-height:calc(100svh - 30px);overflow:auto;background:white;border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 100px #07132d55;padding:17px}.dialog h2{font-size:20px;line-height:1.16;letter-spacing:-.045em}.dialog>p{margin:7px 0;color:var(--gray);font-size:12px}.dialog .square{width:31px;height:31px}.dialog .card{margin-top:7px}.form-option{display:flex;align-items:center;gap:7px;padding:6px 3px;font-size:12px}.form-option input{accent-color:var(--blue)}
 #toast{position:fixed;z-index:75;left:50%;bottom:14px;translate:-50% 0;max-width:calc(100% - 24px);padding:8px 12px;border-radius:10px;background:var(--navy);color:white;font-size:11px;box-shadow:var(--shadow)}
-.guide-launch{position:fixed;z-index:35;right:16px;bottom:15px;display:flex;align-items:center;gap:6px;background:var(--navy);border:0;color:white;padding:6px 11px 6px 6px;border-radius:99px;font-size:11px;font-weight:800;box-shadow:var(--shadow)}.g-avatar{width:24px;height:24px;display:inline-grid;place-items:center;border-radius:50%;background:#dbe8ff;color:#1646a1;font-weight:900;position:relative}.new .g-avatar:after{content:"";position:absolute;right:-2px;top:-1px;background:#fb7185;width:8px;height:8px;border:1px solid var(--navy);border-radius:50%}
+.guide-launch{position:fixed;z-index:35;right:16px;bottom:15px;display:flex;align-items:center;gap:6px;background:var(--navy);border:0;color:white;padding:6px 11px 6px 6px;border-radius:99px;font-size:11px;font-weight:800;box-shadow:var(--shadow)}.g-avatar{width:28px;height:28px;display:inline-grid;place-items:center;border-radius:50%;background:#E7EEFD;padding:2px;position:relative;flex:none}.guide-launch .g-avatar{background:#fff;width:30px;height:30px}.guide-launch{padding:5px 13px 5px 5px!important;font-size:12px!important}.guide-launch.new .g-avatar svg{animation:pipwave 1.4s ease 3}.guide-welcome .pip-name .g-avatar{width:44px;height:44px;padding:4px}.pip-name{font-size:16px!important}.pip-name{display:flex;align-items:center;gap:7px}.pip-name small{display:block;font-size:10px;font-weight:600;color:var(--gray);letter-spacing:0}.guide-welcome .actions .link{margin-left:auto}@keyframes pipwave{0%,100%{transform:rotate(0)}30%{transform:rotate(-12deg)}60%{transform:rotate(10deg)}}.guide-welcome .g-avatar svg{animation:pipwave 1.4s ease 2}.new .g-avatar:after{content:"";position:absolute;right:-2px;top:-1px;background:#fb7185;width:8px;height:8px;border:1px solid var(--navy);border-radius:50%}
 .guide-welcome{position:fixed;z-index:36;right:16px;bottom:55px;width:min(265px,calc(100% - 32px));box-shadow:var(--shadow);background:white;border:1px solid var(--line);border-radius:14px;padding:11px}.guide-welcome h2{font-size:13px}.guide-welcome .square{width:25px;height:25px}.guide-welcome p{font-size:11px;color:var(--gray);margin-top:5px}.guide-welcome .btn{font-size:10px;min-height:29px}
 .tour-card{position:fixed;z-index:44;width:min(308px,calc(100% - 18px));padding:11px;background:white;border:1px solid #b3c8f1;border-radius:14px;box-shadow:0 14px 50px #08183c47}.tour-card h2{font-size:16px;letter-spacing:-.03em;margin:3px 0}.tour-card p{font-size:11px;color:#44536d}.tour-card .btn{min-height:28px;font-size:10px;padding:4px 8px}.tour-card .link{font-size:10px}.tour-mask{position:fixed;inset:0;pointer-events:none;z-index:39;width:100%;height:100%}.tour-ring{stroke:#73a3ff;stroke-width:2;fill:none}.cursor{position:fixed;z-index:49;pointer-events:none;width:17px;height:17px;transform:translate(-50%,-50%);border:2px solid white;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px #255ade75;transition:left .28s,top .28s}.cursor.click{animation:tap .48s ease}@keyframes tap{70%{box-shadow:0 0 0 14px #4a87ff38}}
 .spinner{display:inline-block;width:13px;height:13px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .55s linear infinite}@keyframes spin{to{rotate:360deg}}
@@ -118,7 +118,7 @@ h1,h2,h3,p{margin:0}button svg{vertical-align:middle}svg{display:inline-block;fl
  .tour-card .tc-body h2{margin:0 0 2px;font-size:15px}
  .tour-card .tc-body p{font-size:12px;line-height:1.4}
  .tour-card .tc-actions{margin:0;display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:320px}
- .guide-launch{display:none}
+ .guide-launch{bottom:18px;right:18px}
 }
 .guide-scrim{position:fixed;inset:0;z-index:45;background:#0a1a3f66;border:0;padding:0;margin:0;width:100%;height:100%;cursor:default}
 .guide-welcome.center{left:50%;top:50%;right:auto;bottom:auto;translate:-50% -50%;width:min(390px,calc(100% - 32px));padding:18px;z-index:46}
@@ -774,17 +774,18 @@ function renderGuide() {
   const root=$('#guide');
   if (!entered || tour) {root.innerHTML='';return;}
   const finished=welcome==='finished';
-  root.innerHTML=`<button class="guide-launch ${state.guideSeen?'':'new'}" type="button" data-action="guide" aria-expanded="${Boolean(welcome)}"><span class="g-avatar">G</span> Guide</button>
-    ${welcome?`<button type="button" class="guide-scrim" data-action="guide-close" aria-label="Close guide" tabindex="-1"></button><section class="guide-welcome center" aria-label="Guide"><div class="row"><h2><span class="g-avatar">G</span> Guide</h2>${square(icon('close'),'guide-close','Close guide')}</div>
-    <p>${finished?'That’s it! Explore the what-ifs or switch views to see how the same decisions appear.':'Hi, I’m your guide. Want a 90-second tour of how Maya’s assistant acts, asks and blocks? Or explore on your own: the What-if controls and the side panel are yours.'}</p>
-    <div class="actions">${finished?btn('Switch view','guide-switch'):btn('Take the 90-second tour','tour-start')}${btn(finished?'Explore':'I’ll explore','guide-close','outline')}${finished?link('Replay tour','tour-start'):''}</div></section>`:''}`;
+  root.innerHTML=`<button class="guide-launch ${state.guideSeen?'':'new'}" type="button" data-action="guide" aria-expanded="${Boolean(welcome)}"><span class="g-avatar">${BOT}</span> Ask Pip</button>
+    ${welcome?`<button type="button" class="guide-scrim" data-action="guide-close" aria-label="Close guide" tabindex="-1"></button><section class="guide-welcome center" aria-label="Guide"><div class="row"><h2 class="pip-name"><span class="g-avatar">${BOT}</span><span>Pip<small>Your Basket guide</small></span></h2>${square(icon('close'),'guide-close','Close guide')}</div>
+    <p>${finished?'That’s the whole flow! Try the What-if controls, or switch views to see the same decisions from the store’s side. Tap me any time.':'Hi, I’m Pip! In 90 seconds I’ll show you how Maya’s own assistant shops on Basket: what it does alone, when it asks her, and what it is never allowed to do.'}</p>
+    <div class="actions">${finished?btn('Switch view','guide-switch'):btn('Get a quick tour','tour-start')}${finished?btn('Explore','guide-close','outline'):btn('I’ll explore','guide-explore','outline')}${finished?link('Replay tour','tour-start'):link('Skip','guide-skip')}</div></section>`:''}`;
 }
 function enter(view) {
   entered=true; state=fresh(view);
   renderShell(); render(true,'[data-screen-title]');
   welcome=''; renderGuide();
   clearTimeout(welcomeTimer);
-  welcomeTimer=setTimeout(()=>{if(!tour&&!sheet&&!playing){welcome='hello';renderGuide();}},600);
+  let pipSkip=false;try{pipSkip=sessionStorage.getItem('pipSkip')==='1'}catch(e){}
+  if(!pipSkip) welcomeTimer=setTimeout(()=>{if(!tour&&!sheet&&!playing){welcome='hello';renderGuide();}},600);
 }
 function setView(view, source='') {
   if (view===state.view) return;
@@ -922,6 +923,7 @@ function beginCleanRun(step=1) {
   state.step=step;
 }
 
+const BOT=`<svg viewBox="0 0 32 32" width="100%" height="100%" aria-hidden="true"><line x1="16" y1="3.5" x2="16" y2="8" stroke="#1476FC" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="3.5" r="2.2" fill="#FF6FA8"/><rect x="5" y="8" width="22" height="17" rx="7" fill="#1476FC"/><rect x="8.5" y="11.5" width="15" height="9.5" rx="4.5" fill="#0B1445"/><circle cx="13" cy="16.2" r="1.9" fill="#9CF0FF"/><circle cx="19" cy="16.2" r="1.9" fill="#9CF0FF"/><path d="M13.5 19.3q2.5 1.6 5 0" stroke="#9CF0FF" stroke-width="1.2" fill="none" stroke-linecap="round"/><circle cx="7.5" cy="20.5" r="1.4" fill="#FF9CC6"/><circle cx="24.5" cy="20.5" r="1.4" fill="#FF9CC6"/><path d="M9 25v2.5h14V25" fill="#1476FC"/></svg>`;
 const STOPS = [
   {title:'Maya sets the rules',q:'Q3 · Q5',text:'Maya requires lactose-free milk and approves anything above $5. During the pilot, she places every order herself.',targets:['#tour-rule','#tour-ladder'],scroll:['#tour-rule','start']},
   {title:'Act: within the rule',q:'Q3',text:'The usual milk is out. Basket checks a $4.50 lactose-free swap against Maya’s rule and adds it with the reason shown.',targets:['#milk-lf_1l'],scroll:['#tour-milk','center']},
@@ -1012,7 +1014,7 @@ function renderTour(focus = false) {
   if(!tour)return;
   const stop=STOPS[tour.index];
   $('#tour').innerHTML=`<svg class="tour-mask" aria-hidden="true"><defs><mask id="spotlight"><rect width="100%" height="100%" fill="white"/><g id="spot-cuts"></g></mask></defs><rect width="100%" height="100%" fill="#0a1a3f" opacity=".55" mask="url(#spotlight)"/><g id="spot-rings"></g></svg>
-    <section class="tour-card" aria-label="Guided tour" aria-live="polite"><div class="tc-meta"><div class="row start"><span class="g-avatar">G</span><b class="micro">${tour.index+1} / ${STOPS.length}</b><span class="pill">${stop.q}</span></div>${btn('Auto ▶','tour-auto','outline','aria-pressed="'+tour.auto+'"')}</div>
+    <section class="tour-card" aria-label="Guided tour" aria-live="polite"><div class="tc-meta"><div class="row start"><span class="g-avatar">${BOT}</span><b class="micro">${tour.index+1} / ${STOPS.length}</b><span class="pill">${stop.q}</span></div>${btn('Auto ▶','tour-auto','outline','aria-pressed="'+tour.auto+'"')}</div>
     <div class="tc-body"><h2>${stop.title}</h2><p>${stop.text}</p></div><div class="tc-actions actions">${btn('Back','tour-back','outline',tour.index===0?'disabled':'')}${btn(tour.index===4?'Finish':'Next','tour-next')}${link('Skip tour','tour-skip')}${link(state.view==='how'?'Customer view':'How it works','tour-switch')}</div></section>`;
   positionTour();
   if(focus)focusOn('[data-action="tour-next"]');
@@ -1188,6 +1190,8 @@ const ACTIONS = {
     focusOn(welcome?'#guide [data-action="tour-start"]':guideReturn);
   },
   'guide-close':()=>{welcome='';renderGuide();focusOn('.guide-launch');},
+  'guide-explore':()=>{welcome='';renderGuide();focusOn('.guide-launch');showToast('Tip: open What-if, or switch to “How it works”. Tap Pip any time.');},
+  'guide-skip':()=>{try{sessionStorage.setItem('pipSkip','1')}catch(e){}welcome='';renderGuide();focusOn('.guide-launch');},
   'guide-switch':()=>{welcome='';renderGuide();setView(state.view==='how'?'customer':'how','[data-screen-title]');},
   'tour-start':tourStart,'tour-next':()=>tourGo(tour.index+1),'tour-back':()=>tourGo(tour.index-1),'tour-skip':()=>tourEnd(),
   'tour-auto':el=>{tour.auto=!tour.auto;el.setAttribute('aria-pressed',tour.auto);scheduleTour();},
